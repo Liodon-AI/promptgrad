@@ -12,7 +12,7 @@ version = "0.1.0"
 description = "Prompt Sensitivity Analyzer — measure robustness, entropy, and token importance of LLM prompts."
 readme = "README.md"
 license = { file = "LICENSE" }
-authors = [{ name = "Liodon AI", email = "hello@liodon.ai" }]
+authors = [{ name = "Liodon AI", email = "info@liodon.ai" }]
 keywords = [
     "prompt engineering",
     "llm",
