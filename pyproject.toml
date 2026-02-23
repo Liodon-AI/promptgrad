@@ -1,0 +1,150 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# ---------------------------------------------------------------------------
+# Project metadata
+# ---------------------------------------------------------------------------
+
+[project]
+name = "promptgrad"
+version = "0.1.0"
+description = "Prompt Sensitivity Analyzer — measure robustness, entropy, and token importance of LLM prompts."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Liodon AI", email = "hello@liodon.ai" }]
+keywords = [
+    "prompt engineering",
+    "llm",
+    "nlp",
+    "sensitivity analysis",
+    "prompt robustness",
+    "embedding",
+    "ai",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+]
+requires-python = ">=3.9"
+
+# Core dependencies — intentionally minimal (works with zero ML models)
+dependencies = [
+    "numpy>=1.22",
+]
+
+# ---------------------------------------------------------------------------
+# Optional extras
+# ---------------------------------------------------------------------------
+
+[project.optional-dependencies]
+
+# Local semantic embeddings (recommended)
+local = [
+    "sentence-transformers>=2.2",
+]
+
+# OpenAI embeddings
+openai = [
+    "openai>=1.0",
+]
+
+# Plotting / visualisation
+viz = [
+    "matplotlib>=3.5",
+]
+
+# All extras at once
+all = [
+    "sentence-transformers>=2.2",
+    "openai>=1.0",
+    "matplotlib>=3.5",
+]
+
+# Development
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.3",
+    "mypy>=1.0",
+    "build>=1.0",
+    "twine>=5.0",
+    "sentence-transformers>=2.2",
+    "matplotlib>=3.5",
+]
+
+# ---------------------------------------------------------------------------
+# Entry points
+# ---------------------------------------------------------------------------
+
+[project.scripts]
+promptgrad = "promptgrad.cli:main"
+
+# ---------------------------------------------------------------------------
+# URLs
+# ---------------------------------------------------------------------------
+
+[project.urls]
+Homepage = "https://github.com/Liodon-AI/promptgrad"
+Repository = "https://github.com/Liodon-AI/promptgrad"
+"Bug Tracker" = "https://github.com/Liodon-AI/promptgrad/issues"
+Changelog = "https://github.com/Liodon-AI/promptgrad/blob/main/CHANGELOG.md"
+
+# ---------------------------------------------------------------------------
+# Hatch build config
+# ---------------------------------------------------------------------------
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/promptgrad"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "tests/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "pyproject.toml",
+]
+
+# ---------------------------------------------------------------------------
+# Ruff (linting + formatting)
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+# ---------------------------------------------------------------------------
+# Mypy
+# ---------------------------------------------------------------------------
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+# ---------------------------------------------------------------------------
+# pytest
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
